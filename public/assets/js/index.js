@@ -43,6 +43,34 @@ let renderActiveNote = function() {
 }
 };
 
+let handleNoteSave = function() {
+    let newNote = {
+      title: $noteTitle.val(),
+      text: $noteText.val()
+    };
+
+    saveNote(newNote).then(function(data) {
+      getAndRenderNotes();
+      renderActiveNote();
+    });
+};
+
+let handleNoteDelete = function(event) {
+  event.stopPropagation();
+
+    let note = $(this)
+      .parent(".list-group-item")
+     .data();
+
+    if (activeNote.id === note.id) {
+      activeNote = {};
+    }
+
+    deleteNote(note.id).then(function() {
+      getAndRenderNotes();
+      renderActiveNote();
+    });
+};
 
 
 
